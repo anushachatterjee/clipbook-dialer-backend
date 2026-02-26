@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const fetch = require('node-fetch');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,6 +9,7 @@ const HUBSPOT_API_KEY = process.env.HUBSPOT_API_KEY;
 
 app.use(cors());
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ── Helpers ─────────────────────────────────────────────────────────────
 

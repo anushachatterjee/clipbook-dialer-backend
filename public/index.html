@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clipbook Dialer — Team Setup</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #3358f4;
+    --blue-light: #eef2ff;
+    --green: #34c759;
+    --red: #ff3b30;
+    --text: #1c1c1e;
+    --sub: #636366;
+    --border: #e5e5ea;
+    --bg: #f7f7fa;
+    --white: #ffffff;
+    --radius: 16px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.04), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 12px rgba(0,0,0,.06), 0 2px 4px rgba(0,0,0,.04);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(180deg, #ffffff 0%, #f7f7fa 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 60px 24px 52px;
+    text-align: center;
+  }
+
+  .logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 32px;
+  }
+
+  .logo-icon {
+    width: 44px; height: 44px;
+    background: linear-gradient(135deg, #3358f4, #5b7fff);
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px; font-weight: 800; color: #fff;
+    box-shadow: 0 4px 16px rgba(51,88,244,.25);
+  }
+
+  .logo-text {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -.3px;
+  }
+
+  .logo-text span { color: var(--blue); }
+
+  h1 {
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 14px;
+    line-height: 1.15;
+    background: linear-gradient(135deg, #1c1c1e 0%, #3c3c43 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    font-size: 17px;
+    color: var(--sub);
+    max-width: 520px;
+    margin: 0 auto 40px;
+    line-height: 1.65;
+  }
+
+  /* ── BOOKMARKLET BUTTON ── */
+  .bm-wrap {
+    margin-bottom: 12px;
+  }
+
+  #bmBtn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #3358f4, #5b7fff);
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: grab;
+    box-shadow: 0 4px 20px rgba(51,88,244,.3), 0 1px 3px rgba(51,88,244,.2);
+    transition: transform .2s ease, box-shadow .2s ease;
+    user-select: none;
+  }
+
+  #bmBtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(51,88,244,.35), 0 2px 6px rgba(51,88,244,.2);
+  }
+
+  #bmBtn:active { cursor: grabbing; transform: translateY(-1px); }
+
+  .bm-hint {
+    font-size: 12px;
+    color: #aeaeb2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+  }
+
+  .arrow-up {
+    font-size: 18px;
+    animation: bounce 1.5s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  /* ── PILLS ── */
+  .pills {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 36px;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 6px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--sub);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 48px 24px 72px;
+  }
+
+  /* ── STEPS ── */
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .steps { display: flex; flex-direction: column; gap: 10px; margin-bottom: 48px; }
+
+  .step {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s ease, border-color .2s ease;
+  }
+
+  .step:hover {
+    box-shadow: var(--shadow-md);
+    border-color: #d1d1d6;
+  }
+
+  .step-num {
+    width: 32px; height: 32px;
+    border-radius: 10px;
+    background: var(--blue-light);
+    color: var(--blue);
+    font-size: 14px;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .step-body h3 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+
+  .step-body p {
+    font-size: 13px;
+    color: var(--sub);
+    line-height: 1.65;
+  }
+
+  .step-body code {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--blue-light);
+    border: 1px solid #dde3fc;
+    border-radius: 5px;
+    padding: 2px 7px;
+    color: var(--blue);
+  }
+
+  /* ── CSV FORMAT ── */
+  .csv-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .csv-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 14px; }
+
+  .csv-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12px;
+    font-family: 'DM Mono', monospace;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .csv-table th {
+    text-align: left;
+    padding: 8px 12px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sub);
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+  }
+
+  .csv-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #f0f0f2;
+    color: var(--sub);
+  }
+
+  .csv-table tr:last-child td { border-bottom: none; }
+
+  .csv-table td.hl { color: var(--blue); font-weight: 500; }
+
+  .note {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #92690c;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 10px;
+    padding: 12px 16px;
+    line-height: 1.6;
+  }
+
+  /* ── FEATURES ── */
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 480px) { .features { grid-template-columns: 1fr; } }
+
+  .feat {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow .2s ease, transform .2s ease;
+  }
+
+  .feat:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+  }
+
+  .feat-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+    width: 40px; height: 40px;
+    background: var(--bg);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .feat h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+  .feat p { font-size: 12px; color: var(--sub); line-height: 1.55; }
+
+  /* ── SHARE SECTION ── */
+  .share-card {
+    background: linear-gradient(135deg, #eef2ff, #f0f4ff);
+    border: 1px solid #c7d2fe;
+    border-radius: var(--radius);
+    padding: 28px;
+    text-align: center;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .share-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+  .share-card p { font-size: 13px; color: var(--sub); margin-bottom: 20px; line-height: 1.6; }
+
+  .share-url {
+    display: flex;
+    align-items: center;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 440px;
+    margin: 0 auto;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .share-url span {
+    flex: 1;
+    padding: 10px 14px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--sub);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .copy-btn {
+    padding: 10px 18px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background .15s;
+  }
+
+  .copy-btn:hover { background: #2545d4; }
+
+  /* ── CONFIG ── */
+  .config-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-sm);
+  }
+  .config-card h3 { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+  .config-card p { font-size: 12px; color: var(--sub); margin-bottom: 14px; line-height: 1.6; }
+  .config-row { display: flex; gap: 8px; }
+  .config-row input {
+    flex: 1;
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    outline: none;
+  }
+  .config-row input:focus { border-color: var(--blue); }
+  .config-row button {
+    padding: 10px 18px;
+    background: var(--blue);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+  .config-status {
+    margin-top: 8px;
+    font-size: 11px;
+    color: var(--green);
+    display: none;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 28px 24px;
+    font-size: 12px;
+    color: #aeaeb2;
+    border-top: 1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="logo">
+    <div class="logo-icon">C</div>
+    <div class="logo-text">Clipbook <span>Dialer</span></div>
+  </div>
+  <h1>Power dialer for your whole team</h1>
+  <p>Built on Google Voice. Upload a CSV, click dial, and blaze through your prospect list. No subscriptions, no new tools.</p>
+
+  <div class="bm-wrap">
+    <a id="bmBtn" href="#">📞 Clipbook Dialer</a>
+  </div>
+  <div class="bm-hint">
+    <span class="arrow-up">↑</span>
+    Drag the button above to your Chrome bookmarks bar
+  </div>
+
+  <div class="pills">
+    <div class="pill"><span class="dot"></span> Works on Google Voice</div>
+    <div class="pill"><span class="dot"></span> Auto-advance between calls</div>
+    <div class="pill"><span class="dot"></span> HubSpot CRM sync</div>
+    <div class="pill"><span class="dot"></span> Any CSV export ready</div>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="container">
+
+  <!-- BACKEND CONFIG -->
+  <div class="section-label">Backend Configuration</div>
+  <div class="config-card">
+    <h3>Connect to your team's backend</h3>
+    <p>Enter your Render backend URL to enable HubSpot sync. All call data will be synced to HubSpot as call engagements. Without a backend URL, calls are saved to your browser only.</p>
+    <div class="config-row">
+      <input type="text" id="apiUrlInput" placeholder="https://clipbook-dialer-api.onrender.com" value="">
+      <button id="applyUrlBtn">Apply</button>
+    </div>
+    <div class="config-status" id="configStatus">Bookmarklet updated with backend URL</div>
+  </div>
+
+  <!-- SETUP STEPS -->
+  <div class="section-label">Setup — takes 2 minutes</div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h3>Show your bookmarks bar in Chrome</h3>
+        <p>Press <code>Cmd+Shift+B</code> (Mac) or <code>Ctrl+Shift+B</code> (Windows) to show your bookmarks bar if it's hidden.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h3>Drag the blue button to your bookmarks bar</h3>
+        <p>Click and hold the <strong>📞 Clipbook Dialer</strong> button at the top of this page, then drag it up to your bookmarks bar and release. You'll see it appear as a bookmark.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h3>Go to Google Voice</h3>
+        <p>Open <code>voice.google.com</code> in Chrome and make sure you're logged into your Clipbook Google account.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h3>Click the bookmark to launch the dialer</h3>
+        <p>Click <strong>📞 Clipbook Dialer</strong> in your bookmarks bar. The dialer panel will appear on the left side of Google Voice instantly. If it ever disappears, just click the bookmark again.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h3>Upload your CSV and start dialing</h3>
+        <p>Export your list from Clay, click <strong>📂 Upload CSV</strong> in the dialer, and hit <strong>Dial</strong>. With Auto mode on, it will automatically move to the next call after each one ends.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CSV FORMAT -->
+  <div class="section-label">CSV Format</div>
+  <div class="csv-card">
+    <h3>Auto-detects columns — works with any CSV export</h3>
+    <table class="csv-table">
+      <tr>
+        <th>Field</th>
+        <th>Matched headers</th>
+        <th>Used for</th>
+      </tr>
+      <tr><td class="hl">Phone</td><td>phone, mobile, cell, tel</td><td>Number that gets dialed (required)</td></tr>
+      <tr><td class="hl">Name</td><td>full name, name</td><td>Display name in dialer</td></tr>
+      <tr><td>First / Last</td><td>first name, last name</td><td>Fallback if no full name column</td></tr>
+      <tr><td class="hl">Company</td><td>company, organization, org, account</td><td>Organization name</td></tr>
+      <tr><td class="hl">Title</td><td>title, job title, role, position</td><td>Shown under name</td></tr>
+      <tr><td class="hl">LinkedIn</td><td>linkedin</td><td>Clickable LinkedIn button</td></tr>
+    </table>
+    <div class="note">⚠️ Your CSV must have a header row. Columns are matched by name (case-insensitive) so column order doesn't matter. Works with Clay, Apollo, HubSpot, and any other export. Rows without a phone number are skipped automatically.</div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section-label">What's included</div>
+  <div class="features">
+    <div class="feat">
+      <div class="feat-icon">⚡</div>
+      <h4>Auto-advance</h4>
+      <p>Automatically moves to the next call 4 seconds after one ends. Toggle on/off anytime.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📋</div>
+      <h4>Dispositions</h4>
+      <p>Mark each call: Connected, Voicemail, No Answer, or Callback. Auto-selects No Answer if you don't pick.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📝</div>
+      <h4>Notes per call</h4>
+      <p>Type notes during or after a call. Saved with each contact in the log.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">in</div>
+      <h4>LinkedIn quick-access</h4>
+      <p>One click to open a prospect's LinkedIn profile while you're on the call.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">📊</div>
+      <h4>Call log</h4>
+      <p>Every call is saved with name, company, title, disposition, notes, and duration.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">↓</div>
+      <h4>Export CSV</h4>
+      <p>Download your full call log as a CSV anytime from the Log tab.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔄</div>
+      <h4>HubSpot sync</h4>
+      <p>Every call is automatically synced to HubSpot as a call engagement, associated with the matching contact by phone number.</p>
+    </div>
+    <div class="feat">
+      <div class="feat-icon">🔍</div>
+      <h4>Duplicate detection</h4>
+      <p>Previously-called numbers are flagged with a badge showing the last disposition and date. Spot duplicates before you dial.</p>
+    </div>
+  </div>
+
+  <!-- SHARE -->
+  <div class="share-card">
+    <h3>Share with your team</h3>
+    <p>Send your team this page link (or the HTML file via Slack/Drive). Everyone follows the same 5 steps above to get set up in under 2 minutes.</p>
+    <div class="share-url">
+      <span id="shareUrl">Share this file via Slack or Google Drive</span>
+      <button class="copy-btn" onclick="copyUrl()">Copy link</button>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  Clipbook Dialer · Built for the Clipbook GTM team · Powered by Google Voice + HubSpot
+</footer>
+
+<script>
+// ── BUILD BOOKMARKLET ──────────────────────────────────────────────────
+const dialerCode = (function(){
+  const css = `#cbp{position:fixed;top:0;left:60px;width:300px;height:100vh;z-index:2147483647;background:#f2f2f7;border-right:1px solid #d1d1d6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:#1c1c1e;display:flex;flex-direction:column;box-shadow:4px 0 20px rgba(0,0,0,.1);isolation:isolate}#cbp *{box-sizing:border-box;margin:0;padding:0}#cbp .h{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:#fff;border-bottom:1px solid #e5e5ea;flex-shrink:0}#cbp .hl{display:flex;align-items:center;gap:8px;font-weight:700;font-size:14px}#cbp .hicon{width:24px;height:24px;background:linear-gradient(135deg,#3358f4,#5b7fff);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:800}#cbp .hright{display:flex;align-items:center;gap:10px}#cbp .hx{background:none;border:none;color:#aeaeb2;cursor:pointer;font-size:22px;line-height:1;padding:0}#cbp .htoggle{display:flex;align-items:center;gap:5px;font-size:11px;color:#8e8e93;cursor:pointer;user-select:none}#cbp .tknob{width:36px;height:22px;border-radius:100px;background:#34c759;position:relative;transition:background .25s;flex-shrink:0}#cbp .tknob.off{background:#c7c7cc}#cbp .tball{width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;left:16px;transition:left .25s;box-shadow:0 1px 4px rgba(0,0,0,.25)}#cbp .tball.off{left:2px}#cbp .tabs{display:flex;background:#fff;border-bottom:1px solid #e5e5ea;flex-shrink:0}#cbp .tab{flex:1;padding:10px;border:none;background:none;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;border-bottom:2px solid transparent;color:#8e8e93}#cbp .tab.on{color:#3358f4;border-bottom-color:#3358f4}#cbp .card{background:#fff;padding:16px 16px 12px;border-bottom:1px solid #e5e5ea;flex-shrink:0;text-align:center}#cbp .av{width:52px;height:52px;border-radius:50%;background:#e5e5ea;border:2px solid #d1d1d6;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:#8e8e93;margin:0 auto 10px}#cbp .av.live{border-color:#34c759;box-shadow:0 0 0 4px rgba(52,199,89,.15)}#cbp .cname{font-weight:700;font-size:15px;color:#1c1c1e;margin-bottom:2px;display:block}#cbp .ctitle{font-size:11px;color:#636366;margin-bottom:2px;display:block;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 8px}#cbp .cco{font-size:11px;color:#8e8e93;margin-bottom:2px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}#cbp .cnum{font-family:monospace;font-size:11px;color:#aeaeb2;margin-bottom:8px;display:block}#cbp .cmeta{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:10px}#cbp .clinkedin{display:inline-flex;align-items:center;gap:4px;background:#0a66c2;color:#fff;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;text-decoration:none}#cbp .cs{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;letter-spacing:.05em;margin-bottom:10px}#cbp .cs.idle{background:#e5e5ea;color:#8e8e93}#cbp .cs.dialing{background:#fff3cd;color:#856404}#cbp .cs.connected{background:#d4edda;color:#155724}#cbp .cs.ended{background:#f8d7da;color:#721c24}#cbp .timer{font-family:monospace;font-size:28px;font-weight:700;color:#1c1c1e;margin-bottom:12px;display:none;line-height:1}#cbp .timer.v{display:block}#cbp .ctrls{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-bottom:6px}#cbp .cbw{display:flex;flex-direction:column;align-items:center;gap:4px}#cbp .cbw span{font-size:10px;color:#8e8e93;font-weight:500}#cbp .bc{width:44px;height:44px;border-radius:50%;border:none;cursor:pointer;font-size:17px;display:flex;align-items:center;justify-content:center;transition:all .15s}#cbp .bdial{background:#34c759;box-shadow:0 2px 10px rgba(52,199,89,.4)}#cbp .bhang{background:#ff3b30;box-shadow:0 2px 10px rgba(255,59,48,.35);display:none}#cbp .bhang.show{display:flex}#cbp .bsm{background:#e5e5ea;color:#3c3c43}#cbp .hint{font-size:11px;color:#c7c7cc}#cbp .auto{display:none;padding:8px 14px;background:#d4edda;border-bottom:1px solid #b8dfc9;font-size:12px;color:#155724;align-items:center;justify-content:space-between;flex-shrink:0}#cbp .auto.show{display:flex}#cbp .stybtn{background:#fff;border:1px solid #b8dfc9;color:#155724;font-size:11px;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;font-family:inherit}#cbp .nsec{padding:12px 14px;border-bottom:1px solid #e5e5ea;flex-shrink:0;background:#f2f2f7}#cbp .sl{font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:#aeaeb2;margin-bottom:8px}#cbp .dg{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px}#cbp .db{padding:9px;border-radius:8px;border:1px solid #d1d1d6;background:#fff;color:#3c3c43;font-size:12px;font-weight:600;cursor:pointer;text-align:center;width:100%;font-family:inherit}#cbp .db.sc{background:#d4edda;border-color:#34c759;color:#155724}#cbp .db.sv{background:#fff3cd;border-color:#ffc107;color:#856404}#cbp .db.sn{background:#f8d7da;border-color:#ff3b30;color:#721c24}#cbp .db.scb{background:#dbeafe;border-color:#3358f4;color:#1d4ed8}#cbp textarea{width:100%;height:60px;background:#fff;border:1px solid #d1d1d6;border-radius:8px;color:#1c1c1e;font-family:inherit;font-size:13px;padding:8px 10px;resize:none;outline:none;line-height:1.6}#cbp textarea:focus{border-color:#3358f4}#cbp .savebtn{width:100%;margin-top:8px;background:#3358f4;color:#fff;border:none;border-radius:8px;padding:11px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit}#cbp .qwrap{flex:1;overflow-y:auto;background:#f2f2f7}#cbp .qwrap::-webkit-scrollbar{width:3px}#cbp .qwrap::-webkit-scrollbar-thumb{background:#c7c7cc;border-radius:2px}#cbp .qhead{padding:10px 14px 6px;display:flex;align-items:center;justify-content:space-between}#cbp .csvbtn{background:#fff;border:1px solid #d1d1d6;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#3358f4;cursor:pointer;font-family:inherit}#cbp .qi{display:flex;align-items:center;gap:8px;padding:8px 14px;cursor:pointer;border-bottom:1px solid #e5e5ea;background:#fff}#cbp .qi:hover{background:#f0f4ff}#cbp .qi.active{background:#eef2ff;border-left:3px solid #3358f4;padding-left:11px}#cbp .qi.done{opacity:.4}#cbp .logwrap{flex:1;overflow-y:auto;padding:10px;background:#f2f2f7}#cbp .logcard{background:#fff;border:1px solid #e5e5ea;border-radius:10px;padding:12px 14px;margin-bottom:8px}#cbp .expbtn{width:100%;background:#fff;border:1px solid #d1d1d6;border-radius:8px;padding:9px;font-size:12px;font-weight:600;color:#3358f4;cursor:pointer;margin-bottom:10px;font-family:inherit}#cbp .prev-called{display:inline-block;font-size:10px;font-weight:600;padding:2px 8px;border-radius:100px;background:#fff3cd;color:#856404;margin-top:4px}#cbp .qi .prev-dot{width:6px;height:6px;border-radius:50%;background:#ffc107;flex-shrink:0}`;
+
+  const html = `<div class="h"><div class="hl"><div class="hicon">C</div>Clipbook Dialer</div><div class="hright"><div class="htoggle" id="cbToggleWrap"><span>Auto</span><div class="tknob" id="cbTknob"><div class="tball" id="cbTball"></div></div></div><button class="hx" onclick="document.getElementById('cbp').style.display='none'">\u00d7</button></div></div><div class="tabs"><button class="tab on" id="tabD">Dialer</button><button class="tab" id="tabL">Log (<span id="logCount">0</span>)</button></div><div id="vD" style="display:flex;flex-direction:column;flex:1;overflow:hidden;min-height:0"><div class="card"><div class="av" id="cbAv">\u2014</div><span class="cname" id="cbName">Upload a CSV to start</span><span class="ctitle" id="cbTitle"></span><span class="cco" id="cbCo"></span><span class="cnum" id="cbNum"></span><div class="cmeta"><a class="clinkedin" id="cbLI" href="#" target="_blank" style="display:none">in LinkedIn</a></div><div class="cs idle" id="cbCs">IDLE</div><div class="timer" id="cbTimer">0:00</div><div class="ctrls"><div class="cbw"><button class="bc bsm" id="cbSkipBtn">\u23ed</button><span>Skip</span></div><div class="cbw"><button class="bc bdial" id="cbDialBtn">\ud83d\udcde</button><span>Dial</span></div><div class="cbw"><button class="bc bhang" id="cbHangBtn">\ud83d\udcf5</button><span>Hang up</span></div><div class="cbw"><button class="bc bsm" id="cbVmBtn">\ud83d\udce8</button><span>Voicemail</span></div></div><div class="hint" id="cbHint">Upload a CSV to begin</div></div><div class="auto" id="cbAuto"><span>\u26a1 Next call in <strong id="cbAcon">4</strong>s</span><button class="stybtn" id="cbStayBtn">Stay</button></div><div class="nsec"><div class="sl">Disposition</div><div class="dg"><button class="db" data-d="\u2705 Connected" data-c="sc" id="db1">\u2705 Connected</button><button class="db" data-d="\ud83d\udce8 Voicemail" data-c="sv" id="db2">\ud83d\udce8 Voicemail</button><button class="db" data-d="\u274c No Answer" data-c="sn" id="db3">\u274c No Answer</button><button class="db" data-d="\ud83d\udd01 Callback" data-c="scb" id="db4">\ud83d\udd01 Callback</button></div><div class="sl">Notes</div><textarea id="cbNotes" placeholder="Key points, next steps..."></textarea><button class="savebtn" id="cbSaveBtn">Save &amp; Next \u2192</button></div><div class="qwrap"><div class="qhead"><div style="font-size:11px;font-weight:600;color:#8e8e93" id="cbQLabel">No queue loaded</div><input type="file" id="cbCSVIn" accept=".csv" style="display:none"><button class="csvbtn" id="cbCSVBtn">\ud83d\udcc2 Upload CSV</button></div><div id="cbQ"></div></div></div><div id="vL" style="display:none;flex:1;overflow:hidden;min-height:0;flex-direction:column"><div class="logwrap" id="cbLogWrap"></div></div>`;
+
+  const js = `
+    window.CB_API_URL='__CB_API_URL__';
+    window._p=window._p||[];window._i=window._i||0;window._log=JSON.parse(localStorage.getItem('cbDialerLog')||'[]');
+    window._d='';window._tmr=null;window._secs=0;window._st='idle';window._auto=null;window._autoOn=true;
+    window.cbFP=function(ph){var d=ph.replace(/\\D/g,'');return d.length===11?'+1 ('+d.slice(1,4)+') '+d.slice(4,7)+'-'+d.slice(7):d.length===10?'('+d.slice(0,3)+') '+d.slice(3,6)+'-'+d.slice(6):ph;};
+    function parseCsvRow(line){var cols=[];var cur='';var inQ=false;for(var i=0;i<line.length;i++){var c=line[i];if(c==='"'){inQ=!inQ;}else if(c===','&&!inQ){cols.push(cur.trim());cur='';}else{cur+=c;}}cols.push(cur.trim());return cols;}
+    function detectColumns(headers){var map={phone:-1,name:-1,first:-1,last:-1,company:-1,title:-1,linkedin:-1};var patterns={phone:/phone|mobile|cell|tel/i,name:/^full.?name$|^name$/i,first:/first.?name/i,last:/last.?name/i,company:/company|organization|org|account/i,title:/title|job.?title|role|position/i,linkedin:/linkedin/i};headers.forEach(function(h,i){var clean=h.replace(/^"|"$/g,'').trim();Object.keys(patterns).forEach(function(field){if(map[field]===-1&&patterns[field].test(clean))map[field]=i;});});return map;}
+    function parseCSV(text){var out=[];var lines=text.split('\\n').filter(function(l){return l.trim();});if(lines.length<2)return out;var headers=parseCsvRow(lines[0]);var cm=detectColumns(headers);if(cm.phone===-1){alert('Could not find a phone column. Detected headers: '+headers.map(function(h){return h.replace(/^"|"$/g,'');}).join(', '));return out;}for(var idx=1;idx<lines.length;idx++){var cols=parseCsvRow(lines[idx]);var rawName=(cm.name!==-1?cols[cm.name]:'').replace(/^"|"$/g,'').trim();if(!rawName&&(cm.first!==-1||cm.last!==-1)){rawName=((cm.first!==-1?cols[cm.first]:'')+' '+(cm.last!==-1?cols[cm.last]:'')).replace(/^"|"$/g,'').trim();}var phone=(cols[cm.phone]||'').replace(/\\D/g,'');var company=cm.company!==-1?(cols[cm.company]||'').replace(/^"|"$/g,''):'';var title=cm.title!==-1?(cols[cm.title]||'').replace(/^"|"$/g,''):'';var linkedin=cm.linkedin!==-1?(cols[cm.linkedin]||'').replace(/^"|"$/g,''):'';if(phone.length>=10&&rawName)out.push({name:rawName,phone:phone,co:company,title:title,linkedin:linkedin});}return out;}
+    document.getElementById('cbDialBtn').addEventListener('click',function(){window.cbDial();});
+    document.getElementById('cbHangBtn').addEventListener('click',function(){window.cbHangup();});
+    document.getElementById('cbSaveBtn').addEventListener('click',function(){window.cbSave();});
+    document.getElementById('cbSkipBtn').addEventListener('click',function(){window.cbSkip();});
+    document.getElementById('cbVmBtn').addEventListener('click',function(){window.cbVm();});
+    document.getElementById('cbStayBtn').addEventListener('click',function(){window.cbCancelAuto();});
+    document.getElementById('cbToggleWrap').addEventListener('click',function(){window.cbToggleAuto();});
+    ['db1','db2','db3','db4'].forEach(function(id){var b=document.getElementById(id);b.addEventListener('click',function(){window.cbSD(b);});});
+    document.getElementById('cbCSVBtn').addEventListener('click',function(){document.getElementById('cbCSVIn').click();});
+    document.getElementById('cbCSVIn').addEventListener('change',function(e){var file=e.target.files[0];if(!file)return;var r=new FileReader();r.onload=function(ev){window._p=parseCSV(ev.target.result);window._i=0;window.cbReset();window.cbRQ();window.cbUP();document.getElementById('cbCSVBtn').textContent='\\u2705 '+window._p.length+' loaded';document.getElementById('cbCSVBtn').style.cssText='background:#d4edda;border:1px solid #28a745;border-radius:8px;padding:6px 12px;font-size:11px;font-weight:600;color:#155724;cursor:pointer;font-family:inherit';};r.readAsText(file);e.target.value='';});
+    document.getElementById('tabD').addEventListener('click',function(){document.getElementById('tabD').className='tab on';document.getElementById('tabL').className='tab';document.getElementById('vD').style.display='flex';document.getElementById('vL').style.display='none';});
+    document.getElementById('tabL').addEventListener('click',function(){document.getElementById('tabD').className='tab';document.getElementById('tabL').className='tab on';document.getElementById('vD').style.display='none';document.getElementById('vL').style.display='flex';window.cbRenderLog();});
+    window.cbRQ=function(){var el=document.getElementById('cbQ');el.innerHTML='';document.getElementById('cbQLabel').textContent=window._p.length?window._p.length+' prospects':'No queue loaded';window._p.forEach(function(p,i){var d=document.createElement('div');d.className='qi'+(i===window._i?' active':'')+(i<window._i?' done':'');d.addEventListener('click',function(){window._i=i;window.cbReset();window.cbRQ();window.cbUP();});var hasPrev=window.cbPrevCall(p.phone);d.innerHTML='<div style="font-family:monospace;font-size:10px;color:#c7c7cc;width:18px;flex-shrink:0">'+(i+1)+'</div><div style="flex:1;min-width:0"><div style="font-size:12px;font-weight:600;color:#1c1c1e;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+p.name+'</div><div style="font-size:10px;color:#8e8e93;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+p.co+'</div></div>'+(hasPrev?'<div class="prev-dot" title="Previously called"></div>':'')+'<div style="font-size:11px;flex-shrink:0;color:'+(i<window._i?'#34c759':i===window._i?'#3358f4':'transparent')+'">'+(i<window._i?'\\u2713':i===window._i?'\\u25b6':'')+'</div>';el.appendChild(d);});};
+    window.cbPrevCall=function(phone){var digits=phone.replace(/\\D/g,'');for(var i=window._log.length-1;i>=0;i--){if(window._log[i].phone.replace(/\\D/g,'')===digits)return window._log[i];}return null;};
+    window.cbPrevCallAsync=function(phone,cb){if(!window.CB_API_URL){cb(window.cbPrevCall(phone));return;}fetch(window.CB_API_URL+'/api/calls/history?phone='+encodeURIComponent(phone)).then(function(r){return r.json();}).then(function(d){if(d.found){cb({disp:d.status||'',date:d.date?new Date(d.date).toLocaleDateString():'',notes:d.body||''});}else{cb(window.cbPrevCall(phone));}}).catch(function(){cb(window.cbPrevCall(phone));});};
+    window.cbUP=function(){var p=window._p[window._i];if(!p){document.getElementById('cbAv').textContent='\\ud83c\\udf89';document.getElementById('cbAv').className='av';document.getElementById('cbName').textContent='All done!';document.getElementById('cbTitle').textContent='';document.getElementById('cbCo').textContent=window._log.length+' calls logged';document.getElementById('cbNum').textContent='';document.getElementById('cbLI').style.display='none';var old=document.getElementById('cbPrevBadge');if(old)old.remove();document.getElementById('cbHint').textContent='Upload a new CSV to keep going';return;}var init=p.name.split(' ').map(function(n){return n[0];}).join('').toUpperCase().slice(0,2);document.getElementById('cbAv').textContent=init;document.getElementById('cbAv').className='av';document.getElementById('cbName').textContent=p.name;document.getElementById('cbTitle').textContent=p.title||'';document.getElementById('cbCo').textContent=p.co||'';document.getElementById('cbNum').textContent=window.cbFP(p.phone);var oldBadge=document.getElementById('cbPrevBadge');if(oldBadge)oldBadge.remove();window.cbPrevCallAsync(p.phone,function(prev){if(prev){var badge=document.createElement('span');badge.id='cbPrevBadge';badge.className='prev-called';badge.textContent='Called before \\u2014 '+prev.disp+(prev.date?' on '+prev.date:'');var numEl=document.getElementById('cbNum');if(numEl)numEl.insertAdjacentElement('afterend',badge);}});var li=document.getElementById('cbLI');if(p.linkedin){li.href=p.linkedin;li.style.display='inline-flex';}else{li.style.display='none';}document.getElementById('cbHint').textContent='Click Dial to start';};
+    window.cbDial=function(){var p=window._p[window._i];if(!p)return;var digits=p.phone.replace(/\\D/g,'');if(!digits)return;window.cbSS('dialing');window.cbST();document.getElementById('cbHint').textContent='Dialing...';var input=document.querySelector('input[placeholder="Enter a name or number"]');if(!input)return;var setter=Object.getOwnPropertyDescriptor(HTMLInputElement.prototype,'value').set;setter.call(input,digits);input.dispatchEvent(new Event('input',{bubbles:true}));input.dispatchEvent(new Event('change',{bubbles:true}));input.focus();var tries=0;var t=setInterval(function(){tries++;var cb=null;document.querySelectorAll('button').forEach(function(b){var l=(b.getAttribute('aria-label')||'').toLowerCase();if(l.includes('call')&&!l.includes('receiving')&&!l.includes('audio')&&!l.includes('anonymous')&&!l.includes('linked')&&!l.includes('register'))cb=b;});if(cb){clearInterval(t);cb.click();}if(tries>15)clearInterval(t);},300);};
+    window.cbHangup=function(){var h=document.querySelector('[aria-label*="End call"],[aria-label*="Hang up"]');if(h)h.click();window.cbOnEnd();};
+    window.cbVm=function(){window.cbSDN('\\ud83d\\udce8 Voicemail');window.cbHangup();};
+    window.cbSkip=function(){window.cbCancelAuto();window._i++;window.cbReset();window.cbRQ();window.cbUP();};
+    window.cbOnEnd=function(){window.cbSS('ended');window.cbStopT();document.getElementById('cbAv').className='av';document.getElementById('cbHint').textContent='Call ended \\u2014 add notes or wait.';if(!window._autoOn)return;var n=4;document.getElementById('cbAuto').classList.add('show');document.getElementById('cbAcon').textContent=n;window._auto=setInterval(function(){n--;document.getElementById('cbAcon').textContent=n;if(n<=0){clearInterval(window._auto);document.getElementById('cbAuto').classList.remove('show');if(!window._d)window.cbSDN('\\u274c No Answer');window.cbSave();}},1000);};
+    window.cbCancelAuto=function(){clearInterval(window._auto);document.getElementById('cbAuto').classList.remove('show');};
+    window.cbSave=function(){var p=window._p[window._i];if(!p)return;var entry={name:p.name,phone:p.phone,co:p.co,title:p.title||'',linkedin:p.linkedin||'',disp:window._d||'\\u2014',notes:document.getElementById('cbNotes').value.trim(),dur:window._secs,time:new Date().toLocaleTimeString(),date:new Date().toLocaleDateString()};window._log.push(entry);try{localStorage.setItem('cbDialerLog',JSON.stringify(window._log));}catch(e){}document.getElementById('logCount').textContent=window._log.length;if(window.CB_API_URL){fetch(window.CB_API_URL+'/api/calls',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({phone:p.phone,name:p.name,company:p.co||'',title:p.title||'',disposition:window._d||'',notes:entry.notes,duration:window._secs,linkedin:p.linkedin||''})}).catch(function(e){console.warn('HubSpot sync failed:',e);});}window._i++;window.cbReset();window.cbRQ();window.cbUP();if(window._autoOn&&window._p[window._i])setTimeout(function(){window.cbDial();},1000);};
+    window.cbSS=function(s){window._st=s;var el=document.getElementById('cbCs');el.className='cs '+s;el.textContent={idle:'IDLE',dialing:'DIALING...',connected:'CONNECTED',ended:'CALL ENDED'}[s];var dial=document.getElementById('cbDialBtn');var hang=document.getElementById('cbHangBtn');if(s==='dialing'||s==='connected'){dial.style.display='none';hang.classList.add('show');}else{dial.style.display='flex';hang.classList.remove('show');}};
+    window.cbST=function(){window._secs=0;clearInterval(window._tmr);var el=document.getElementById('cbTimer');el.classList.add('v');window._tmr=setInterval(function(){window._secs++;var m=Math.floor(window._secs/60);var s=window._secs%60;el.textContent=m+':'+(s<10?'0':'')+s;},1000);};
+    window.cbStopT=function(){clearInterval(window._tmr);};
+    window.cbReset=function(){window.cbStopT();window.cbCancelAuto();var t=document.getElementById('cbTimer');if(t){t.classList.remove('v');t.textContent='0:00';}window.cbSS('idle');var n=document.getElementById('cbNotes');if(n)n.value='';window._d='';document.querySelectorAll('#cbp .db').forEach(function(b){b.className='db';});window._secs=0;};
+    window.cbSD=function(btn){document.querySelectorAll('#cbp .db').forEach(function(b){b.className='db';});btn.className='db '+(btn.getAttribute('data-c')||'');window._d=btn.getAttribute('data-d');};
+    window.cbSDN=function(name){document.querySelectorAll('#cbp .db').forEach(function(b){if(b.getAttribute('data-d')===name)window.cbSD(b);});};
+    window.cbToggleAuto=function(){window._autoOn=!window._autoOn;document.getElementById('cbTknob').className='tknob'+(window._autoOn?'':' off');document.getElementById('cbTball').className='tball'+(window._autoOn?'':' off');};
+    window.cbRenderLogCards=function(logData){
+      var el=document.getElementById('cbLogWrap');el.innerHTML='';
+      if(!logData.length){el.innerHTML='<div style="text-align:center;color:#aeaeb2;padding:40px 16px;font-size:13px">No calls logged yet</div>';return;}
+      var exp=document.createElement('button');exp.className='expbtn';exp.textContent='\\u2193 Export CSV';
+      exp.addEventListener('click',function(){var rows=logData.map(function(e){return[e.name,e.phone,e.company||e.co||'',e.title||'',e.disp,(e.notes||'').replace(/,/g,'|'),(e.duration||e.dur||0)+'s',e.date||e.time||'',e.linkedin||''];});var csv=[['Name','Phone','Company','Title','Disposition','Notes','Duration','Date','LinkedIn']].concat(rows).map(function(r){return r.join(',');}).join('\\n');Object.assign(document.createElement('a'),{href:URL.createObjectURL(new Blob([csv],{type:'text/csv'})),download:'calls-'+new Date().toISOString().slice(0,10)+'.csv'}).click();});
+      el.appendChild(exp);
+      var colors={'\\u2705 Connected':'#d4edda','\\ud83d\\udce8 Voicemail':'#fff3cd','\\u274c No Answer':'#f8d7da','\\ud83d\\udd01 Callback':'#dbeafe','COMPLETED':'#d4edda','NO_ANSWER':'#f8d7da'};
+      logData.forEach(function(e){
+        var card=document.createElement('div');card.className='logcard';
+        var timeStr=e.time||'';if(e.date&&!e.time){try{timeStr=new Date(e.date).toLocaleString();}catch(x){timeStr=e.date;}}
+        var r1=document.createElement('div');r1.style.cssText='display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:3px';r1.innerHTML='<div style="font-weight:700;font-size:13px;color:#1c1c1e;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">'+e.name+'</div><div style="font-size:10px;color:#aeaeb2;flex-shrink:0;margin-left:8px">'+timeStr+'</div>';card.appendChild(r1);
+        var titleVal=e.title||'';if(titleVal){var r2=document.createElement('div');r2.style.cssText='font-size:11px;color:#636366;font-style:italic;margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';r2.textContent=titleVal;card.appendChild(r2);}
+        var coVal=e.company||e.co||'';if(coVal){var r3=document.createElement('div');r3.style.cssText='font-size:11px;color:#8e8e93;margin-bottom:8px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis';r3.textContent=coVal;card.appendChild(r3);}
+        var r4=document.createElement('div');r4.style.cssText='display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:8px';
+        if(e.linkedin){var li=document.createElement('a');li.href=e.linkedin;li.target='_blank';li.style.cssText='display:inline-flex;align-items:center;background:#0a66c2;color:#fff;font-size:10px;font-weight:600;padding:3px 9px;border-radius:100px;text-decoration:none;flex-shrink:0';li.textContent='in LinkedIn';r4.appendChild(li);}
+        var badge=document.createElement('span');badge.style.cssText='display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:100px;background:'+(colors[e.disp]||'#e5e5ea')+';flex-shrink:0';badge.textContent=e.disp;r4.appendChild(badge);card.appendChild(r4);
+        var r5=document.createElement('div');r5.style.cssText='font-size:12px;color:'+(e.notes?'#3c3c43':'#aeaeb2')+';line-height:1.5;font-style:'+(e.notes?'normal':'italic')+';margin-bottom:6px';r5.textContent=e.notes||'No notes';card.appendChild(r5);
+        var durVal=e.duration||e.dur||0;
+        var r6=document.createElement('div');r6.style.cssText='font-size:10px;color:#aeaeb2';r6.textContent='\\ud83d\\udcde '+window.cbFP(e.phone)+' \\u00b7 \\u23f1 '+durVal+'s';card.appendChild(r6);
+        el.appendChild(card);
+      });
+    };
+    window.cbRenderLog=function(){
+      if(window.CB_API_URL){
+        var el=document.getElementById('cbLogWrap');el.innerHTML='<div style="text-align:center;color:#aeaeb2;padding:40px 16px;font-size:13px">Loading from HubSpot...</div>';
+        fetch(window.CB_API_URL+'/api/calls/log').then(function(r){return r.json();}).then(function(d){
+          if(d.calls&&d.calls.length){document.getElementById('logCount').textContent=d.calls.length;window.cbRenderLogCards(d.calls);}
+          else{window.cbRenderLogCards(window._log);}
+        }).catch(function(){window.cbRenderLogCards(window._log);});
+      }else{
+        window.cbRenderLogCards([].concat(window._log).reverse());
+      }
+    };
+    setInterval(function(){var inCall=!!document.querySelector('[aria-label*="End call"],[aria-label*="Hang up"]');if(inCall&&window._st==='dialing'){window.cbSS('connected');var av=document.getElementById('cbAv');if(av)av.classList.add('live');var h=document.getElementById('cbHint');if(h)h.textContent='Connected!';}else if(!inCall&&window._st==='connected')window.cbOnEnd();},800);
+    document.getElementById('logCount').textContent=window._log.length;
+    if(window._p.length){window.cbRQ();window.cbUP();}
+  `;
+
+  return `(function(){
+    var old=document.getElementById('cbp');if(old)old.remove();
+    document.querySelectorAll('style').forEach(function(s){if(s.textContent.indexOf('#cbp')>-1)s.remove();});
+    var st=document.createElement('style');st.textContent=${JSON.stringify(css)};document.head.appendChild(st);
+    var p=document.createElement('div');p.id='cbp';p.innerHTML=${JSON.stringify(html)};document.body.appendChild(p);
+    ${js}
+  })();`;
+})();
+
+function buildBookmarklet(apiUrl) {
+  const code = dialerCode.replace("'__CB_API_URL__'", JSON.stringify(apiUrl || ''));
+  return 'javascript:' + encodeURIComponent(code);
+}
+
+// Auto-detect backend URL from the page's own origin
+const detectedUrl = window.location.origin;
+document.getElementById('apiUrlInput').value = detectedUrl;
+document.getElementById('bmBtn').href = buildBookmarklet(detectedUrl);
+document.getElementById('shareUrl').textContent = window.location.href;
+
+// Test backend on page load
+fetch(detectedUrl + '/api/health').then(r => r.json()).then(d => {
+  if (d.status === 'ok') {
+    const status = document.getElementById('configStatus');
+    status.textContent = 'Connected to backend — HubSpot sync is active';
+    status.style.color = '#34c759';
+    status.style.display = 'block';
+  }
+}).catch(() => {});
+
+document.getElementById('applyUrlBtn').addEventListener('click', function() {
+  let url = document.getElementById('apiUrlInput').value.trim().replace(/\/+$/, '');
+  document.getElementById('bmBtn').href = buildBookmarklet(url);
+  const status = document.getElementById('configStatus');
+  if (url) {
+    status.textContent = 'Bookmarklet updated — drag it to your bookmarks bar again';
+    status.style.color = '#34c759';
+    fetch(url + '/api/health').then(r => r.json()).then(d => {
+      if (d.status === 'ok') {
+        status.textContent = 'Connected to backend — drag the bookmarklet to your bar';
+        status.style.color = '#34c759';
+      }
+    }).catch(() => {
+      status.textContent = 'Could not reach backend — check the URL';
+      status.style.color = '#ff3b30';
+    });
+  } else {
+    status.textContent = 'Backend URL cleared — calls will save to browser only';
+    status.style.color = '#8e8e93';
+  }
+  status.style.display = 'block';
+});
+
+function copyUrl() {
+  navigator.clipboard.writeText(window.location.href).then(() => {
+    const btn = document.querySelector('.copy-btn');
+    btn.textContent = 'Copied!';
+    btn.style.background = '#34c759';
+    setTimeout(() => { btn.textContent = 'Copy link'; btn.style.background = ''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>
