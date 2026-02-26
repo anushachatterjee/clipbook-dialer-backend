@@ -466,18 +466,6 @@
 <!-- MAIN -->
 <div class="container">
 
-  <!-- BACKEND CONFIG -->
-  <div class="section-label">Backend Configuration</div>
-  <div class="config-card">
-    <h3>Connect to your team's backend</h3>
-    <p>Enter your Render backend URL to enable HubSpot sync. All call data will be synced to HubSpot as call engagements. Without a backend URL, calls are saved to your browser only.</p>
-    <div class="config-row">
-      <input type="text" id="apiUrlInput" placeholder="https://clipbook-dialer-api.onrender.com" value="">
-      <button id="applyUrlBtn">Apply</button>
-    </div>
-    <div class="config-status" id="configStatus">Bookmarklet updated with backend URL</div>
-  </div>
-
   <!-- SETUP STEPS -->
   <div class="section-label">Setup — takes 2 minutes</div>
   <div class="steps">
@@ -499,7 +487,7 @@
       <div class="step-num">3</div>
       <div class="step-body">
         <h3>Go to Google Voice</h3>
-        <p>Open <code>voice.google.com</code> in Chrome and make sure you're logged into your Clipbook Google account.</p>
+        <p>Open <code>voice.google.com</code> in Chrome and make sure you're logged into your personal Google account.</p>
       </div>
     </div>
     <div class="step">
@@ -698,42 +686,8 @@ function buildBookmarklet(apiUrl) {
 
 // Auto-detect backend URL from the page's own origin
 const detectedUrl = window.location.origin;
-document.getElementById('apiUrlInput').value = detectedUrl;
 document.getElementById('bmBtn').href = buildBookmarklet(detectedUrl);
 document.getElementById('shareUrl').textContent = window.location.href;
-
-// Test backend on page load
-fetch(detectedUrl + '/api/health').then(r => r.json()).then(d => {
-  if (d.status === 'ok') {
-    const status = document.getElementById('configStatus');
-    status.textContent = 'Connected to backend — HubSpot sync is active';
-    status.style.color = '#34c759';
-    status.style.display = 'block';
-  }
-}).catch(() => {});
-
-document.getElementById('applyUrlBtn').addEventListener('click', function() {
-  let url = document.getElementById('apiUrlInput').value.trim().replace(/\/+$/, '');
-  document.getElementById('bmBtn').href = buildBookmarklet(url);
-  const status = document.getElementById('configStatus');
-  if (url) {
-    status.textContent = 'Bookmarklet updated — drag it to your bookmarks bar again';
-    status.style.color = '#34c759';
-    fetch(url + '/api/health').then(r => r.json()).then(d => {
-      if (d.status === 'ok') {
-        status.textContent = 'Connected to backend — drag the bookmarklet to your bar';
-        status.style.color = '#34c759';
-      }
-    }).catch(() => {
-      status.textContent = 'Could not reach backend — check the URL';
-      status.style.color = '#ff3b30';
-    });
-  } else {
-    status.textContent = 'Backend URL cleared — calls will save to browser only';
-    status.style.color = '#8e8e93';
-  }
-  status.style.display = 'block';
-});
 
 function copyUrl() {
   navigator.clipboard.writeText(window.location.href).then(() => {
