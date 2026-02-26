@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: clipbook-dialer-api
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: HUBSPOT_API_KEY
+        sync: false
+      - key: NODE_ENV
+        value: production
